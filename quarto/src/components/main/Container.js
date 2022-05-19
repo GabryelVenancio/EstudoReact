@@ -1,4 +1,4 @@
-import {useState,useEffect} from "react";
+import { useState, useEffect } from "react";
 import Conteudo from "./Conteudo";
 import Mensagem from "./Mensagem";
 
@@ -7,7 +7,15 @@ export default function Container() {
 
     //vamos criar o estado inicial dos produtos, ou seja,
     //quais dados existem dentro do objeto produtos
+    const [mensagem, setMensagem] = useState([
+        {
+            titulo:"",
+            autor:"",
+            mensagem:"",
+        }
+    ])
     const [produtos, setProdutos] =useState([
+        
         {
             id:"",
             nome:"",
@@ -27,17 +35,19 @@ export default function Container() {
         })
         .catch((erro)=>console.error(`Erro ao carregar a api ->${erro}`))
         
-    },[])
+    },[]);
 
 
 
-
+    const mudarDados = (content)=>{
+        setMensagem(content)
+    };
 
 
     return (
         <div className="container">
-            <Mensagem/>
-            <Conteudo dados = {produtos}/>
+            <Mensagem info={mensagem}/>
+            <Conteudo dados = {produtos} acao ={mudarDados} />
         </div>
     )
 }
